@@ -1,34 +1,106 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-
-<!-- jQuery library -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
-<!-- Latest compiled JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    
-    <title>HomePage</title>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+    <link href='./style/style.css' rel='stylesheet' type='text/css'>
+    <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 </head>
+
 <body>
-    <div class="jumbotron">
-            
-    </div>
+
     <div class="container">
-            
-        <div class="row" id="row-for-data">
-            
+        <h1>My First Chart Page</h1>
+        <p> I am going to create a bar chart here.</p>
+        <div class="row linechart-row">
+            <div class="col-md-12 col-sm-12 col-xs-12 linechart-col">
+
+            </div>
         </div>
-                
+
     </div>
-    
+    <script>
+            var w = 1000;
+            var h = 400;
+                
+            monthlySales = [
+                {"month":10, "sales": 100},
+                {"month":20, "sales": 130},
+                {"month":30, "sales": 250},
+                {"month":40, "sales": 300},
+                {"month":50, "sales": 265},
+                {"month":60, "sales": 225},
+                {"month":70, "sales": 180},
+                {"month":80, "sales": 120},
+                {"month":90, "sales": 145},
+                {"month":100, "sales": 130},
+                {"month":110, "sales": 100},
+                {"month":120, "sales": 130},
+                {"month":130, "sales": 250},
+                {"month":140, "sales": 300},
+                {"month":150, "sales": 265},
+                {"month":160, "sales": 225},
+                {"month":170, "sales": 180},
+                {"month":180, "sales": 120},
+                {"month":190, "sales": 145}
+            ];
+
+            var lineFun = d3.svg.line()
+            .x(function(d){return d.month*4;})
+            .y(function(d){return h-d.sales;})
+            .interpolate("linear");
+
+            
+            var svg = d3.select(".linechart-col").append("svg").attr({
+                width:w, height:h, id:"test"
+            });
+            var viz = svg.append("path")
+                .attr({
+                    d: lineFun(monthlySales),
+                    "stroke": "purple",
+                    "stroke-width": 2,
+                    "fill": "none"
+                });
+
+                var chart = $("#test"),
+                aspect = chart.width() / chart.height(),
+                container = chart.parent();
+
+            $(window).on("resize", function(){
+                var targetWidth= container.width();
+                chart.attr("width", targetWidth);
+                chart.attr("height", Math.round(targetWidth / aspect));
+            }).trigger("resize");
+
+            //Add labels
+            var labels = svg.selectAll("text")
+                    .data(monthlySales)
+                    .enter()
+                    .append("text")
+                    .text(function(d){return d.sales;})
+                    .attr({
+                        x: function(d) {return d.month*4-35;},
+                        y: function(d) {return h-d.sales;},
+                        "font-size": "12px",
+                        "font-family": "sans-serif",
+                        "fill": "#666666",
+                        "text-anchor": "start",
+                        "dy": ".35em",
+                        "font-weight": function(d, i){
+                            if(i == 0 || i == (monthlySales.length-1)){
+                                return "bold";
+                            }else{
+                                return "normal";
+                            }
+                        }
+                    });
+    </script>
 </body>
+
 </html>
-<script src="js/script.js"></script>
