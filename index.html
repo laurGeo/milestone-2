@@ -26,80 +26,16 @@
 
     </div>
     <script>
-            var w = 1000;
-            var h = 400;
-                
-            monthlySales = [
-                {"month":10, "sales": 100},
-                {"month":20, "sales": 130},
-                {"month":30, "sales": 250},
-                {"month":40, "sales": 300},
-                {"month":50, "sales": 265},
-                {"month":60, "sales": 225},
-                {"month":70, "sales": 180},
-                {"month":80, "sales": 120},
-                {"month":90, "sales": 145},
-                {"month":100, "sales": 130},
-                {"month":110, "sales": 100},
-                {"month":120, "sales": 130},
-                {"month":130, "sales": 250},
-                {"month":140, "sales": 300},
-                {"month":150, "sales": 265},
-                {"month":160, "sales": 225},
-                {"month":170, "sales": 180},
-                {"month":180, "sales": 120},
-                {"month":190, "sales": 145}
-            ];
+        var height = 400;
+        var width = 1000;
+        
+        d3.json("https://rickandmortyapi.com/api/character/",function(data){
+            console.log(data.results);
+           
+        })
 
-            var lineFun = d3.svg.line()
-            .x(function(d){return d.month*4;})
-            .y(function(d){return h-d.sales;})
-            .interpolate("linear");
+        
 
-            
-            var svg = d3.select(".linechart-col").append("svg").attr({
-                width:w, height:h, id:"test"
-            });
-            var viz = svg.append("path")
-                .attr({
-                    d: lineFun(monthlySales),
-                    "stroke": "purple",
-                    "stroke-width": 2,
-                    "fill": "none"
-                });
-
-                var chart = $("#test"),
-                aspect = chart.width() / chart.height(),
-                container = chart.parent();
-
-            $(window).on("resize", function(){
-                var targetWidth= container.width();
-                chart.attr("width", targetWidth);
-                chart.attr("height", Math.round(targetWidth / aspect));
-            }).trigger("resize");
-
-            //Add labels
-            var labels = svg.selectAll("text")
-                    .data(monthlySales)
-                    .enter()
-                    .append("text")
-                    .text(function(d){return d.sales;})
-                    .attr({
-                        x: function(d) {return d.month*4-35;},
-                        y: function(d) {return h-d.sales;},
-                        "font-size": "12px",
-                        "font-family": "sans-serif",
-                        "fill": "#666666",
-                        "text-anchor": "start",
-                        "dy": ".35em",
-                        "font-weight": function(d, i){
-                            if(i == 0 || i == (monthlySales.length-1)){
-                                return "bold";
-                            }else{
-                                return "normal";
-                            }
-                        }
-                    });
     </script>
 </body>
 
