@@ -26,33 +26,20 @@
 
     </div>
     <script>
-       function showHeader(ds){
-                d3.select("body").append("h1")
-                    .text(ds.category + "Sales (2013");
-            }
 
             d3.json("https://rickandmortyapi.com/api/character", function(error, data){
                 if(error){
                     console.log(error);
                 }else{
                     console.log(data); 
-                    
                 }
 
-            var decodedData = JSON.parse(window.atob(data.content));
-
-            console.log(decodedData.contents.results);
-              
-            decodedData.contents.forEach(function(ds){
-                console.log(ds);
-               
+                
+                data.results.forEach(function(ds){
+                    console.log(ds);
+                   
+                });
             });
- 
-            
-            });
-
-        
-        
 
     </script>
 </body>
