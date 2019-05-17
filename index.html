@@ -33,10 +33,11 @@
                 }else{
                     console.log(data); 
                 }
-                var maleCounter = 0; var femaleCounter = 0; var otherCounter = 0;
+               
                 var numPages = data.info.pages -1;
                 console.log(numPages);
                 for(var i=1; i<=numPages; i++){
+                    var maleCounter = 0; var femaleCounter = 0; var otherCounter = 0;
                     var str = "https://rickandmortyapi.com/api/character/?page=" + i;
                     console.log(str );
                     d3.json(str, function(error, d){
@@ -53,9 +54,10 @@
                     });
                     console.log("Male: " + maleCounter);
                     console.log("Female: " + femaleCounter);
-                    console.log("Other: " + otherCounter);
-                    })
-                
+                    console.log("Other: " + otherCounter);  
+                    //Create a bar chart from these 3 categories
+                    });
+
                    
                 }
                 
