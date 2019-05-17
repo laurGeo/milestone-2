@@ -33,12 +33,33 @@
                 }else{
                     console.log(data); 
                 }
-
+                var maleCounter = 0; var femaleCounter = 0; var otherCounter = 0;
+                var numPages = data.info.pages -1;
+                console.log(numPages);
+                for(var i=1; i<=numPages; i++){
+                    var str = "https://rickandmortyapi.com/api/character/?page=" + i;
+                    console.log(str );
+                    d3.json(str, function(error, d){
+                        d.results.forEach(function(d){
+                        
+                        if(d.gender == 'Male'){
+                            maleCounter++;
+                        }else if(d.gender == 'Female'){
+                            femaleCounter++;
+                        }else{
+                            otherCounter++;
+                        }
+                      
+                    });
+                    console.log("Male: " + maleCounter);
+                    console.log("Female: " + femaleCounter);
+                    console.log("Other: " + otherCounter);
+                    })
                 
-                data.results.forEach(function(ds){
-                    console.log(ds);
                    
-                });
+                }
+                
+                
             });
 
     </script>
