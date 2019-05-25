@@ -1,46 +1,118 @@
-var baseURL = "https://www.thesportsdb.com/api/v1/json/1/";
+function returnMales(data) {
 
-var searchTeamsStr = "searchteams.php?";
+    d3.json("https://rickandmortyapi.com/api/character", function (error, data) {
+        if (error) {
+            console.log(error);
+        } else {
+            console.log(data);
+        }
 
-var teamsVar = "t=";
+        var numPages = data.info.pages - 1;
+        console.log(numPages);
+        var maleCounter = 0; var femaleCounter = 0; var otherCounter = 0;
+        for (var i = 1; i <= numPages; i++) {
 
-var team = "Arsenal";
+            var str = "https://rickandmortyapi.com/api/character/?page=" + i;
+            console.log(str);
+            d3.json(str, function (error, d) {
+                d.results.forEach(function (d) {
 
-var request = new XMLHttpRequest();
+                    if (d.gender == 'Male') {
+                        maleCounter += maleCounter;
+                    } else if (d.gender == 'Female') {
+                        femaleCounter += femaleCounter;
+                    } else {
+                        otherCounter += otherCounter;
+                    }
 
-var requestString = "https://www.thesportsdb.com/api/v1/json/1/all_sports.php";
-//var requestString = baseURL + searchTeamsStr + teamsVar + team;
+                });
 
-request.open('GET', requestString, true );
+            });
 
-request.onload = function () {
-    var data = JSON.parse(this.response);
+        }
 
-    data.sports.forEach(element => {
-        var container = document.getElementsByClassName("container")[0];
-        var row = container.getElementsByClassName("row")[0];
-        const card = document.createElement('div');
-        const cardImg = document.createElement('img');
-        cardImg.setAttribute('class', 'card-img-top');
-        card.setAttribute('class' ,'card col-md-4 col-s-4');
-       
+        return maleCounter;
 
-        const h1 = document.createElement('h1');
-        h1.setAttribute('class', 'card-title');
-        h1.textContent = element.strSport;
-
-        const p = document.createElement('p');
-        p.setAttribute('class', 'card-text');
-        var img = element.strSportThumb;
-        cardImg.setAttribute("src", img);
-        element.strSportDescription = element.strSportDescription.substring(0, 300);
-        p.innerHTML =`${element.strSportDescription}...`;
-
-        row.appendChild(card);
-        card.appendChild(cardImg);
-        card.appendChild(h1);
-        card.appendChild(p);
     });
+
+    function getFemales() {
+        const sample = [
+            {
+                'gender': 'male',
+                'value': 100
+            },
+            {
+                'gender': 'female',
+                'value': 57
+            },
+            {
+                'gender': 'other',
+                'value': 14
+            }
+        ];
+            var maleC = 0;
+        d3.json(sample, function(d){
+            d.results.forEach(function(d){
+                if(d.gender == 'male'){
+                    maleC++;
+                }
+            });
+        })
+        return maleC;
+
+    }
+
 }
 
-request.send();
+console.log("females" + getFemales());
+const margin = 60;
+const width = 1000 - 2 * margin;
+const height = 600 - 2 * margin;
+var males = returnMales();
+console.log("males: " + males);
+const sample = [
+    {
+        'gender': 'male',
+        'value': 100
+    },
+    {
+        'gender': 'female',
+        'value': 57
+    },
+    {
+        'gender': 'other',
+        'value': 14
+    }
+]
+
+const svg = d3.select('svg');
+
+const chart = svg.append('g')
+    .attr('transform', `translate(${margin}, ${margin})`);
+
+
+const yScale = d3.scaleLinear()
+    .range([height, 0])
+    .domain([0, 100]);
+
+chart.append('g')
+    .call(d3.axisLeft(yScale));
+
+//x scale
+const xScale = d3.scaleBand()
+    .range([0, width])
+    .domain(sample.map((s) => s.gender))
+    .padding(0.2)
+
+chart.append('g')
+    .attr('transform', `translate(0, ${height})`)
+    .call(d3.axisBottom(xScale));
+
+chart.selectAll()
+    .data(sample)
+    .enter()
+    .append('rect')
+    .attr('x', (s) => xScale(s.gender))
+    .attr('y', (s) => yScale(s.value))
+    .attr('height', (s) => height - yScale(s.value))
+    .attr('width', xScale.bandwidth());

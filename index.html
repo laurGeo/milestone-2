@@ -3,68 +3,84 @@
 
 <head>
     <title>Bootstrap Example</title>
+    <script src="http://d3js.org/d3.v4.min.js" charset="utf-8"></script>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/get-data.js"></script>
     <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
     <link href='./style/style.css' rel='stylesheet' type='text/css'>
-    <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </head>
 
-<body>
+<body style="height:1500px;">
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+        <a class="navbar-brand" href="#">Logo</a>
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="#">Link</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Link</a>
+            </li>
+        </ul>
+    </nav>
 
     <div class="container">
-        <h1>My API Page</h1>
-        <p>This page's console should show the data from the api</p>
-        <div class="row linechart-row">
-            <div class="col-md-12 col-sm-12 col-xs-12 linechart-col">
+        <br>
 
+        <div class="card-deck">
+            <div class="card">
+                <div class="card-body text-center">
+                    <h4 class="card-title">Line Chart</h4>
+
+                    <svg class="line-graph"></svg>
+                </div>
             </div>
         </div>
+        <br>
 
+        <div class="card-deck">
+            <div class="card">
+
+                <div class="card-body text-center">
+                    <h4 class="card-title">Donut Chart</h4>
+                    <p class="card-text">Some text inside the first card</p>
+                    <p class="card-text">Some more text to increase the height</p>
+                    <p class="card-text">Some more text to increase the height</p>
+                    <p class="card-text">Some more text to increase the height</p>
+                    <p class="card-text">Some more text to increase the height</p>
+                    <p class="card-text">Some more text to increase the height</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-body text-center">
+                    <h4 class="card-title">Pie Chart</h4>
+
+                    <svg></svg>
+                </div>
+            </div>
+
+        </div>
+        <br>
+
+        <div class="card-deck">
+            <div class="card">
+                <div class="card-body text-center">
+                    <h4 class="card-title">Histogram</h4>
+                    <p class="card-text">Some text inside the first card</p>
+                    <p class="card-text">Some more text to increase the height</p>
+                    <p class="card-text">Some more text to increase the height</p>
+                    <p class="card-text">Some more text to increase the height</p>
+                    <p class="card-text">Some more text to increase the height</p>
+                    <p class="card-text">Some more text to increase the height</p>
+                </div>
+            </div>
+        </div>
     </div>
-    <script>
-
-            d3.json("https://rickandmortyapi.com/api/character", function(error, data){
-                if(error){
-                    console.log(error);
-                }else{
-                    console.log(data); 
-                }
-               
-                var numPages = data.info.pages -1;
-                console.log(numPages);
-                for(var i=1; i<=numPages; i++){
-                    var maleCounter = 0; var femaleCounter = 0; var otherCounter = 0;
-                    var str = "https://rickandmortyapi.com/api/character/?page=" + i;
-                    console.log(str );
-                    d3.json(str, function(error, d){
-                        d.results.forEach(function(d){
-                        
-                        if(d.gender == 'Male'){
-                            maleCounter++;
-                        }else if(d.gender == 'Female'){
-                            femaleCounter++;
-                        }else{
-                            otherCounter++;
-                        }
-                      
-                    });
-                    console.log("Male: " + maleCounter);
-                    console.log("Female: " + femaleCounter);
-                    console.log("Other: " + otherCounter);  
-                    //Create a bar chart from these 3 categories
-                    });
-
-                   
-                }
-                
-                
-            });
-
-    </script>
 </body>
 
 </html>

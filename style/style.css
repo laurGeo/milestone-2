@@ -1,3 +1,16 @@
-.linechart-col{
+svg{
+  background-color: yellow;
+  width: 100px;
+  height: 100px;
+}
+
+.card-body{
+  background-color: whitesmoke;
+  border: none;
+}
+
+.line-graph{
   background-color: green;
+  width: 100%;
+
 }
