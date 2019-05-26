@@ -3,7 +3,7 @@
     
     console.log(data);
     var svg = d3.select('svg'),
-        width = 1000,
+        width = 300,
         height = 300,
         radius = Math.min(width, height) / 2,
         g = svg.append("g").attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
