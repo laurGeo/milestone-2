@@ -1,9 +1,10 @@
 /*Draw a pie chart */
     var data = [2, 4, 8, 10];
+    
     console.log(data);
     var svg = d3.select('svg'),
-        width = 100,
-        height = 100,
+        width = 1000,
+        height = 300,
         radius = Math.min(width, height) / 2,
         g = svg.append("g").attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
