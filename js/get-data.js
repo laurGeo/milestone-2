@@ -2,7 +2,7 @@
     var data = [2, 4, 8, 10];
     
     console.log(data);
-    var svg = d3.select('svg'),
+    var svg = d3.select('.pie-chart'),
         width = 300,
         height = 300,
         radius = Math.min(width, height) / 2,

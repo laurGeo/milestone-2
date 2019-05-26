@@ -6,9 +6,20 @@
 .line-graph{
   width: 100%;
   height: 300px;
-
 }
 
+
+.bar {
+  fill: steelblue;
+}
+
+.highlight {
+  fill: orange;
+}
+.bar-chart{
+  height: 600px;
+  width: 800px;
+}
 .pie-chart{
 
   height: 300px;
